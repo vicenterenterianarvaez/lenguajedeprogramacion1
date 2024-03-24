@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<iostream>
+int main()
+{ 
+    int edad;
+    std::cout << "ACTIVIDAD UNO, OPERACIONES BÁSICAS EN C++" << std::endl;
+    std::cout << "Bienvenido, el siguiente programa analiza si el usuario es menor o mayor de edad."<< std::endl;
+    std::cout << "Por favor contesta lo que se te pide:" << std::endl;
+    std::cout << " " << std::endl;
+    std::cout<< "   Cuantos años tienes? ";
+    std::cin>>edad;
+        if(edad>17)
+            {
+                std::cout << " " << std::endl;
+                std::cout<<"   Eres mayor de edad"<<
+                std::endl;
+            }
+        else
+            {
+                std::cout << " " << std::endl;
+                std::cout<<"   Eres menor de edad"<<
+                std::endl;
+            }
+    return 0;
+}
+
+
