@@ -1,0 +1,29 @@
+
+#include <iostream>
+
+int main()
+{
+    float primernumero;
+    float segundonumero;
+    std::cout << "ACTIVIDAD 2, OPERACIONES BÁSICAS EN C++" << std::endl << std::endl;
+    std::cout << "ALUMNO: VICENTE RENTERÍA NARVÁEZ" << std::endl << std::endl;
+    std::cout << "PROFESOR: URBANO FRANCISCO ORTEGA RIVERA" << std::endl << std::endl;
+    
+    std::cout << "Bienvenido, el siguiente programa realiza varias operaciones con un par de números proporcionados."<< std::endl << std::endl;
+    std::cout << "Por favor ingresa el primer número:" << std::endl;
+    std::cin>>primernumero;
+    std::cout << "Por favor ingresa el segundo número:" << std::endl;
+    std::cin>>segundonumero;
+    std::cout << " " << std::endl;
+    
+    float suma = primernumero + segundonumero;
+    float resta = primernumero - segundonumero;
+    float multiplicacion = primernumero * segundonumero;
+    float division = primernumero / segundonumero;
+    
+    std::cout << "La suma de " << primernumero << " + " << segundonumero << " = " << suma << std::endl;
+    std::cout << "La resta de " << primernumero << " - " << segundonumero << " = " << resta << std::endl;
+    std::cout << "La multiplicación de " << primernumero << " * " << segundonumero << " = " << multiplicacion << std::endl;
+    std::cout << "La división de " << primernumero << " / " << segundonumero << " = " << division << std::endl;
+    return 0;
+}
