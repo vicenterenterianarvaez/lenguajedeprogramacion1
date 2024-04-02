@@ -1,0 +1,71 @@
+#include <iostream>
+#include <string>
+using namespace std;
+string nombre, apellidopaterno, apellidomaterno, vocalpaterno,
+respuesta, dia, mes, anio, rfc, RFC, palabras_inc[41], vocal;
+int i = 0;
+
+int main()
+{
+    string palabras_inc[] = {"BUEI", "BUEY", "CACA",
+    "CACO", "CAGA", "CAGO", "CAKA", "CAKO", "COGE", "COJA", "KOGE", "KOJO",
+    "KAKA", "KULO", "MAME", "MAMO", "MEAR", "MEAS", "MEON", "MION", "COJE",
+    "COJI", "COJO", "CULO", "FETO", "GUEY", "JOTO", "KACA", "KAKO", "KAGA",
+    "KAGO", "MOCO", "MULA", "PEDA", "PEDO", "PENE", "PUTA", "PUTO", "QULO",
+    "RATA", "RUIN"};
+    
+    std::cout << "ACTIVIDAD 3, CALCULAR RFC EN C++" << std::endl << std::endl;
+    std::cout << "ALUMNO: VICENTE RENTERÍA NARVÁEZ" << std::endl << std::endl;
+    std::cout << "PROFESOR: URBANO FRANCISCO ORTEGA RIVERA" << std::endl << std::endl;
+    std::cout << "Bienvenido, el siguiente programa calcula el RFC."<< std::endl << std::endl;
+    std::cout << "Por favor ingresa los datos solicitados:" << std::endl;
+
+    std::cout << "Ingresar nombre(s): " << std::endl;
+    std::cin >> nombre;
+    std::cout << "Ingresar apellido paterno: " << std::endl;
+    std::cin >> apellidopaterno; 
+    std::cout << "¿Cuentas con apellido materno? (si/no): " << std::endl;
+    std::cin >> respuesta;
+        if(respuesta == "si")
+            {std::cout << "Ingresar apellido materno: " << std::endl;
+            std::cin >> apellidomaterno;}
+            
+        else { apellidomaterno = "X";}
+        
+    std::cout << "A continuación ingresa tu fecha de nacimientos (solo números): " << std::endl;
+    std::cout << "Dia (dd): " << std::endl;
+    std::cin >> dia;
+    std::cout << "Mes (mm): " << std::endl;
+    std::cin >> mes;
+    std::cout << "Año (aaaa): " << std::endl;
+    std::cin >> anio;
+    
+    // a continuación los datos se cambiran a mayusculas para obtener un formato más uniforme://
+    for(int i = 0; i < nombre.length(); i++)
+        {nombre[i] = toupper(nombre[i]);}
+    
+    for(int i = 0; i < apellidopaterno.length(); i++)
+        {apellidopaterno[i] = toupper(apellidopaterno[i]);}
+        
+    for(int i = 0; i < apellidomaterno.length(); i++)
+        {apellidomaterno[i] = toupper(apellidomaterno[i]);}
+    
+    // Ahora se extraeran las letras necesarias para despues imprimirlas en pantalla y formar el RFC//
+    nombre = nombre.substr(0,1);
+    apellidopaterno = apellidopaterno.substr(0,1);
+    apellidomaterno = apellidomaterno.substr(0,1);
+    anio = anio.substr(2,4);
+    
+    for (int i=1; i <= apellidopaterno.length(); i++)
+      {
+        vocal = apellidopaterno.substr(i,1);
+        if ( vocal=="A" || vocal=="E" || vocal=="I" || vocal=="O" || vocal=="U" ) {vocalpaterno = vocal; break;)}
+      }
+      rfc = apellidopaterno + vocalpaterno + apellidomaterno + nombre;
+      for(int i=0; i<41; i++) 
+        {if (rfc==palabras_inc[i]) { rfc = apellidopaterno + vocalpaterno + apellidomaterno + "X";}
+    RFC = rfc + anio + mes + dia;}
+    std::cout << "Tu RFC sin homoclave es: " << RFC << std::endl;
+    
+    return 0;
+}
