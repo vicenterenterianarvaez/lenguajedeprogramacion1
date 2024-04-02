@@ -1,0 +1,118 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+//Funcion para obtener la primera vocal interna de una cadena de texto, nos servira para tener la segunda letra del rfc
+char obtenerPrimeraVolcaInterna(const std::string& str)
+{
+  for (size_t i = 1; i < str.length(); ++i)
+    {
+        char c = str[i];
+        
+        if ( c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
+        return toupper (c);
+    }
+    return 'X'; //si no se encuentra ninguna vocal interna, entonces se utiliza x 
+}
+
+// Funcion principal para realizar el calculo del RFC
+
+        std::string calcularRFC(const std::string& nombre, const std::string& apellidoPaterno, const std::string& apellidoMaterno, const std::string&anionacimiento, const std::string&mes, const std::string&dia )
+        {
+            std::string rfc;
+         
+            // se obtiene la letra inicial y la primera vocal interna del apellido apellidoPaterno
+            char letraInicial = apellidoPaterno[0];
+            char primeraVocalInterna = obtenerPrimeraVolcaInterna(apellidoPaterno);
+    
+            // se obtiene la letra inicial del apellido materno o se usa una ´x´ si no cuenta con apellido materno
+            char inicialApellidoMaterno = (!apellidoMaterno.empty()) ? apellidoMaterno[0] : 'x';
+    
+            // se obtiene la letra inicial del primer nombre o se sustituye por una ´x´ si no tiene 
+            char inicialNombre = nombre[0];
+    
+            //se obtienen las dos ultimos dijitos del año de nacimiento
+            std::string amio = anionacimiento.substr(2,2);
+    
+            //mes y dia no se substraen ya que se piden por separado y son digitos unicos
+
+            // se crea rfc
+            
+            rfc = letraInicial;
+            rfc += primeraVocalInterna;
+            rfc += inicialApellidoMaterno;
+            rfc += inicialNombre;
+            rfc += amio;
+            rfc += mes;
+            rfc += dia;
+            rfc += "XXX";
+    
+            transform(rfc.begin(), rfc.end(), rfc.begin(), ::toupper);
+    
+            return rfc;
+    
+        }
+
+int main()
+{
+    
+    std::cout << "ACTIVIDAD 3, CALCULAR RFC EN C++" << std::endl << std::endl;
+    std::cout << "ALUMNO: VICENTE RENTERÍA NARVÁEZ" << std::endl << std::endl;
+    std::cout << "PROFESOR: URBANO FRANCISCO ORTEGA RIVERA" << std::endl << std::endl;
+    
+    std::cout << "Bienvenido, el siguiente programa calcula el RFC."<< std::endl << std::endl;
+    std::cout << "Por favor ingresa los datos solicitados:" << std::endl;
+    
+    std::string nombre, apellidoPaterno, apellidoMaterno, anionacimiento, mes, dia;
+    
+    std::cout << "Ingresa el nombre(s): "<< std::endl ;
+    std::getline(std::cin, nombre);
+    
+    std::cout << "Ingresa el apellido parterno: "<< std::endl;
+    std::getline(std::cin, apellidoPaterno);
+    
+    std::cout << "Ingresa el apellido materno (si no tiene, presione <Enter>: "<< std::endl;
+    std::getline(std::cin, apellidoMaterno);
+    
+    std::cout << "Ingrese el año de nacimiento (YYYY): " << std::endl;
+    std::getline(std::cin, anionacimiento);
+    
+    std::cout << "Ingrese el mes de nacimiento (MM): " << std::endl;
+    std::getline(std::cin, mes);
+    
+    std::cout << "Ingrese el dia de nacimiento (MM): " << std::endl;
+    std::getline(std::cin, dia);
+    
+    std::string rfc = calcularRFC(nombre, apellidoPaterno, apellidoMaterno, anionacimiento, mes, dia);
+    
+    // Lista de palabras inconvenientes
+    vector<string> palabras_inconvenientes = {"BUEI", "BUEY", "CACA",
+    "CACO", "CAGA", "CAGO", "CAKA", "CAKO", "COGE", "COJA", "KOGE", "KOJO",
+    "KAKA", "KULO", "MAME", "MAMO", "MEAR", "MEAS", "MEON", "MION", "COJE",
+    "COJI", "COJO", "CULO", "FETO", "GUEY", "JOTO", "KACA", "KAKO", "KAGA",
+    "KAGO", "MOCO", "MULA", "PEDA", "PEDO", "PENE", "PUTA", "PUTO", "QULO",
+    "RATA", "RUIN"};
+    
+    //comprobar si el RFC generado es una palabra inconveniente, con estas funciones en caso de que las primeras
+    //letras formen una palabra inconveniente, la cuarta letra que corresponde al nombre se cambiara por una XXX
+    
+    for (const string& palabra : palabras_inconvenientes ) 
+    {
+        if (rfc.substr(0,4) == palabra) 
+        {
+            //si es una palabra inconveniente, cambiara la inicial del nombre por una "X" y se vuelve a generar el nuevo RFC
+            nombre[0] = 'X';
+            rfc = calcularRFC(nombre, apellidoPaterno, apellidoMaterno, anionacimiento, mes, dia);
+            break;
+        }
+    }
+ 
+    std::cout << std::endl << "TU RFC SIN HOMOCLAVE ES EL SIGUIENTE:  " << std::endl << rfc << std::endl;
+    
+    return 0;
+}
+
+
+
